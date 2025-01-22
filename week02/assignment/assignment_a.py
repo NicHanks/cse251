@@ -18,26 +18,61 @@ e. How will you ensure that one thread doesn't change the value of
 f. How do you modify the value of a global variable (see https://stackoverflow.com/questions/10588317/python-function-global-variables)
 '''
 import threading
+#from resources import cse251functions 
 from cse251functions import *
-
 # global variable to keeping track of the final product
 PRODUCT = 0
 
 
 def main():
+      # Instantiate a thread object that will run the calculate_product function
+      thread = threading.Thread(target=calculate_product, args=(5,))
+      # Start the thread
+      thread.start()
+      # Wait for the thread to finish
+      thread.join()
+      # Check the final product
+      assert PRODUCT == 24, f'The product should equal 24 but instead was {PRODUCT}'
+   
+      # Repeat the above steps for 10 and 15
+      thread = threading.Thread(target=calculate_product, args=(10,))
+      thread.start()
+      thread.join()
+      assert PRODUCT == 362880, f'The product should equal 362880 but instead was {PRODUCT}'
+   
+      thread = threading.Thread(target=calculate_product, args=(15,))
+      thread.start()
+      thread.join()
+      assert PRODUCT == 87178291200, f'The product should equal 87178291200 but instead was {PRODUCT}'
 
-    # Test your thread/function first with 5 (so 1 x 2 x 3 x 4 = 24) (replace this line with your own comment)
-    #assert PRODUCT == 24, f'The product should equal 45 but instead was {
-    #    PRODUCT}'
+def calculate_product(n):  
+  if n <= 1:
+    return 1
+  else:
+    return (n-1) * calculate_product(n-1)
 
-    # Then with 10 (replace this line with your own comment)
-    #assert PRODUCT == 362880, f'The product should equal 362880 but instead was {
-    #    PRODUCT}'
+if __name__ == "__main__":
+   num = int(input("Enter a number: "))
+   thread = threading.Thread(target=calculate_product, args=(num,))
+   thread.start()
+   thread.join()
+   print(f"Product of numbers from 1 to {num-1}: {product}")
+   # Test your thread/function first with 5 (so 1 x 2 x 3 x 4 = 24) (replace this line with your own comment)
+   #assert PRODUCT == 24, f'The product should equal 45 but instead was {
+   #    PRODUCT}'
+   PRODUCT = calculate_product(5)
+   assert PRODUCT == 24, f'The product should equal 24 but instead was {PRODUCT}'
+
+   # Then with 10 (replace this line with your own comment)
+   calculate_product(362880)
+   assert PRODUCT == 362880, f'The product should equal 362880 but instead was {
+   PRODUCT}'
 
     # Then with 15 (replace this line with your own comment)
-    #assert PRODUCT == 87178291200, f'The product should equal 87178291200 but instead was {
-    #    PRODUCT}'
-    pass # delete this line
+   calculate_product(87178291200)
+   assert PRODUCT == 87178291200, f'The product should equal 87178291200 but instead was {
+       PRODUCT}'
+   #  pass # delete this line
 
 if __name__ == '__main__':
     main()

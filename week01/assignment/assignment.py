@@ -1,3 +1,4 @@
+
 '''
 Time Guesstimate to complete:
 Proficient with all the "Know how to" statements:                       1 hour
@@ -21,6 +22,10 @@ Not passing an assert or answering #10 and #12: 0 points (code must pass all ass
 from unittest import TestCase
 from cse251functions import *
 
+
+# Remember, use ctr + F11
+
+
 # 1) TODO write a function called 'perform_math' that takes three parameters:
 #      - initial_value: int
 #      - value: int
@@ -28,7 +33,22 @@ from cse251functions import *
 #      - return value: float
 #      The function should perform the mathematical operation, represented
 #      by the string operation parameter, on the initial_value and value.
-#      Delete these instructions and replace with your own description of that the function does.
+#      Delete these instructions and replace with your own description of that the function does.j
+
+# This takes three inputs and does arthimetic with them. 
+def perform_math(initial_value: int, value: int, operation: str):
+    if operation == "+":
+        return initial_value + value
+    elif operation == "-":
+        return initial_value - value
+    elif operation == "*":
+        return initial_value * value
+    elif operation == "/":
+        return initial_value / value
+    elif operation == "**":
+        return initial_value ** value
+    elif operation == "//":
+        return initial_value // value
 
 # 2) TODO write a function called 'find_word_index' that takes two parameters:
 #      - word_to_find: str
@@ -37,6 +57,10 @@ from cse251functions import *
 #      The function should return the index value of the word_to_find in the words list.
 #      Delete these instructions and replace with your own description of that the function does.
 
+# This finds the index of a word in a list. 
+def find_word_index(word_to_find: str, words: list):
+    return words.index(word_to_find)
+
 # 3) TODO write a function called 'get_value_from_dict_using_key' that takes two parameters:
 #      - key: str
 #      - word_dict: dict
@@ -44,12 +68,20 @@ from cse251functions import *
 #      The function should return the value (which will be a string) mapped to the key.
 #      Delete these instructions and replace with your own description of that the function does.
 
+# This will look up x (key) in a map/dictionary (wor_dict)
+def get_value_from_dict_using_key(key: str, word_dict: dict):
+    return word_dict[key] 
+
 # 4) TODO write a function called 'get_list_of_urls_from_dict' that takes two parameters:
 #      - key: str
 #      - url_dict: dict
 #      - return value: list
 #      The function should return the value (which will be a list) mapped to the key.
 #      Delete these instructions and replace with your own description of that the function does.
+
+# I needed a way to return the list
+def get_list_of_urls_from_dict(key: str, url_dict: dict):
+    return url_dict[key]
 
 # 5) TODO write a function called 'find_url' that takes two parameters:
 #      - urls: list
@@ -59,12 +91,27 @@ from cse251functions import *
 #      else return a blank string.
 #      Delete these instructions and replace with your own description of that the function does.
 
+# Getting the url with a specific word, name, or phrase in it by looping through a list of urls. 
+def find_url(urls: list, name: str):
+    for x in urls:
+        if name in x:
+            return x
+    return ""
+
 # 6) TODO write a function called 'find_str_in_file' that takes two parameters:
 #      - filename: str
 #      - str_to_find: str
 #      - return value: bool
 #      The function should return true if str_to_find is within the file, else false
 #      Delete these instructions and replace with your own description of that the function does.
+
+# This is going to see if a certain string is in the file by looking through the file line-by-line. 
+def find_str_in_file(filename: str, str_to_find: str):
+    with open(filename, "r") as f:
+        for line in f:
+            if str_to_find in line:
+                return True
+    return False
 
 # 7) TODO write a class called 'MyParentClass'. The constructor should take three parameters:
 #      - value: int
@@ -74,6 +121,15 @@ from cse251functions import *
 #      in the values list at an index that is passed.
 #      Delete these instructions and replace with your own description of that the function does.
 
+# This class has a method that will find the index to the right place given to it. 
+class MyParentClass:
+    def __init__(self, value: int, values: list, name: str):
+        self.value = value
+        self.values = values
+        self.name = name
+    def get_value_using_index(self, x):
+        return self.values[x]
+
 # 8) TODO write a class called 'MyChildClass'. The class should extend the MyParentClass.
 #      The constructor should take four parameters:
 #      - value: int
@@ -82,6 +138,13 @@ from cse251functions import *
 #      - age: int
 #      The constructor should call super and pass in the appropriate parameters
 #      Delete these instructions and replace with your own description of that the function does.
+
+# This class is going to extend the parent class and add an age parameter.
+# The constructor will call the parent constructor.
+class MyChildClass(MyParentClass):
+    def __init__(self, value, values, name, age):
+        super().__init__(value, values, name)  # Pass arguments to super()
+        self.age = age 
 
 # 9) TODO write a function called 'pass_by_reference_mutable_example' that takes two parameters:
 #      - lists_are_passed_by_reference_and_mutable: list
@@ -94,6 +157,12 @@ from cse251functions import *
 #      Delete these instructions and replace with your own description of that the function does.
 #      10) TODO: Provide a quick explanation of what pass-by-reference means. Also, what does mutable mean?
 
+def pass_by_reference_mutable_example(lists_are_passed_by_reference_and_mutable: list, str_to_add: str):
+    lists_are_passed_by_reference_and_mutable.append(str_to_add)
+    return lists_are_passed_by_reference_and_mutable[0]
+    # Pass-by-reference means that the object is passed by reference, not by value. Mutable means that the object can be changed.
+
+
 # 11) TODO write a function called 'pass_by_reference_immutable_example' that takes two parameters:
 #      - strings_are_pass_by_reference_and_immutable: string
 #      - str_to_add: str
@@ -102,6 +171,12 @@ from cse251functions import *
 #      Notice that in the asserts, that the memory id of the first string and the return string are different.
 #      Delete these instructions and replace with your own description of that the function does.
 #      12) TODO: What does immutable mean?
+
+# This function will add a string to another string 
+def pass_by_reference_immutable_example(strings_are_pass_by_reference_and_immutable: str, str_to_add: str) -> str:
+    new_string = strings_are_pass_by_reference_and_immutable + str_to_add
+    return new_string
+    # Immutable means that the object cannot be changed.
 
 # Don't change any of the assert lines. All asserts should pass. You should see "All tests passed!" if all assert pass.
 # If an assert doesn't pass, you will see an AssertionError (see https://www.w3schools.com/python/ref_keyword_assert.asp).
@@ -176,7 +251,7 @@ def main():
         - Readings: https://www.geeksforgeeks.org/python-classes-and-objects/, https://www.geeksforgeeks.org/extend-class-method-in-python/, https://realpython.com/python-super/
     '''
     # 13) TODO instantiate an object using MyParentClass with the following three parameters: (1, [5, 6, 7], "3")
-    obj = ...
+    obj = MyParentClass(1, [5, 6, 7], "3")
     assert obj.value == 1
     assert obj.values == [5, 6, 7]
     assert obj.name == "3"
@@ -189,7 +264,7 @@ def main():
     # class constructor already creates the value, values, and name parameters. Do not write these in the child
     # class. Instead, the child constructor should call the parent constructor. Same for the 'get_value_using_index'
     # function, do not rewrite this in the child class.
-    childObj = ...
+    childObj = MyChildClass(1, [5, 6, 7], "3", 10)
     assert childObj.value == 1
     assert childObj.values == [5, 6, 7]
     assert childObj.name == "3"
